@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import LoaderTriangle from "@/component/LoaderTriangle";
 
 export const getStaticPaths = async () => {
-    const res = await fetch('http://127.0.0.1:8000/api/keep-me/');
+    const res = await fetch('https://furnicraft.web.id/api/keep-me');
     const data = await res.json();
     const paths = data.data.map((note) => {
         return {
@@ -20,7 +20,7 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async (context) => {
     const id = context.params.id;
-    const res = await fetch('http://127.0.0.1:8000/api/keep-me/' + id)
+    const res = await fetch('https://furnicraft.web.id/api/keep-me/' + id)
     const data = await res.json();
 
     return {
@@ -37,7 +37,7 @@ const NoteDetail = ({ note }) => {
         e.preventDefault();
         const id = router.query.id;
         const editNote = { title, body }
-        fetch('http://127.0.0.1:8000/api/edit/keep-me/'+id, {
+        fetch('https://furnicraft.web.id/api/keep-me/'+id, {
             method: "PUT",
             headers: { "content-type" : "application/json" },
             body: JSON.stringify(editNote),
@@ -52,7 +52,7 @@ const NoteDetail = ({ note }) => {
 
     const handleDeleteButton = () => {
         const id = router.query.id;
-        fetch(`http://127.0.0.1:8000/api/delete/keep-me/${id}`, {
+        fetch(`https://furnicraft.web.id/api/keep-me/${id}`, {
             method: "DELETE"
         }).then(
             setIsLoading(true),
